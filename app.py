@@ -18,13 +18,13 @@ def render_sets():
     year = request.args.get("year", type=int)
     rank = request.args.get("rank", type=int)
     country = request.args.get("country", "")
-    score = request.args.get("score", type=float)
-    gdp = request.args.get("gdp", type=float)
-    life_expectancy = request.args.get("life_expectancy", type=float)
-    freedom = request.args.get("freedom", type=float)
-    generosity = request.args.get("generosity", type=float)
-    corruption = request.args.get("corruption", type=float)
-    social_support = request.arg.get("social_support", type=float)
+    score = request.args.get("score")
+    gdp = request.args.get("gdp")
+    life_expectancy = request.args.get("life_expectancy")
+    freedom = request.args.get("freedom")
+    generosity = request.args.get("generosity")
+    corruption = request.args.get("corruption")
+    social_support = request.arg.get("social_support")
 
     #things we will need for the website..
     #sort_by = request.args.get("sort_by", "set_name")
@@ -32,16 +32,16 @@ def render_sets():
     #no pagination please
 
     params = {
-        "year": year;
-        "rank": rank;
-        "country": country;
-        "score": score;
-        "gdp": gdp;
-        "life_expectancy": life_expectancy;
-        "freedom": freedom;
-        "generosity": generosity;
-        "corruption": corruption;
-        "social_support": social_support;
+        "year": year,
+        "rank": rank,
+        "country": country,
+        "score": score,
+        "gdp": gdp,
+        "life_expectancy": life_expectancy,
+        "freedom": freedom,
+        "generosity": generosity,
+        "corruption": corruption,
+        "social_support": social_support
 
         #"sort_by": sort_by
         #"sort_dir": sort_dir
