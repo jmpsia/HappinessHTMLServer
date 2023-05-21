@@ -32,20 +32,19 @@ def render_sets():
     #no pagination please
 
     params = {
-        "year": year
-        "rank": rank
-        "country": country
-        "score": score
-        "gdp": gdp
-        "life_expectancy": life_expectancy
-        "freedom": freedom
-        "generosity": generosity
-        "corruption": corruption
-        "social_support": social_support
+        "year": year;
+        "rank": rank;
+        "country": country;
+        "score": score;
+        "gdp": gdp;
+        "life_expectancy": life_expectancy;
+        "freedom": freedom;
+        "generosity": generosity;
+        "corruption": corruption;
+        "social_support": social_support;
 
         #"sort_by": sort_by
         #"sort_dir": sort_dir
-
     }
 
     from_where_clause =
@@ -65,7 +64,5 @@ def render_sets():
         params=request.args,
         result_count=count,
         sets=results)
-
-}
 
 
