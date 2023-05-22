@@ -14,20 +14,25 @@ def hello_world():
 
 
 @app.route("/webpage")
-def render_sets():
+def render_page():
+    country_bool = request.args.get("country_bool", "")
+    score_bool = request.args.get("score_bool")
+    gdp_bool = request.args.get("gdp_bool")
+    life_expectancy_bool = request.args.get("life_expectancy_bool")
+    freedom_bool = request.args.get("freedom_bool")
+    generosity_bool = request.args.get("generosity_bool")
+    corruption_bool = request.args.get("corruption_bool")
+    social_support_bool = request.args.get("social_support_bool")
     year = request.args.get("year", type=int)
     rank = request.args.get("rank", type=int)
-    country = request.args.get("country", "")
-    score = request.args.get("score")
-    gdp = request.args.get("gdp")
-    life_expectancy = request.args.get("life_expectancy")
-    freedom = request.args.get("freedom")
-    generosity = request.args.get("generosity")
-    corruption = request.args.get("corruption")
-    social_support = request.args.get("social_support")
-    sort_by = request.args.get("sort_by", "rank")
-    choice = request.args.get("choice", "gdp")
-
+    country = request.args.get("country", "-1" if not country_bool else "1")
+    score = request.args.get("score", "-1" if not score_bool else "1")
+    gdp = request.args.get("gdp", "-1" if not gdp_bool else "1")
+    life_expectancy = request.args.get("life_expectancy", "-1" if not life_expectancy_bool else "1")
+    freedom = request.args.get("freedom", "-1" if not freedom_bool else "1")
+    generosity = request.args.get("generosity", "-1" if not generosity_bool else "1")
+    corruption = request.args.get("corruption", "-1" if not corruption_bool else "1")
+    social_support = request.args.get("social_support", "-1" if not social_support_bool else "1")
 
     #things we will need for the website..
     #sort_by = request.args.get("sort_by", "set_name")
@@ -35,7 +40,7 @@ def render_sets():
     #no pagination please
 
     params = {
-        "year": year,
+        "year": year, 
         "rank": rank,
         "country": country,
         "score": score,
@@ -44,30 +49,51 @@ def render_sets():
         "freedom": freedom,
         "generosity": generosity,
         "corruption": corruption,
-        "social_support": social_support,
-        "choice": f"%{choice}%"
+        "social_support": social_support
+
 
         #"sort_by": sort_by
         #"sort_dir": sort_dir
     }
 
-    sql_clause = """
-        select rank, year, country, score, choice
-        """
-        #INSERT SQL CODE
+    def select_dumb():
+        sql_select_py = "select rank, "
+        cat2 =()
+        for cat in params:
+            print(cat)
+            cat2 += (cat) if not cat == -1 or not cat == 1 else ("")
+            
+        sql_select_py += str.join(', ', cat2)
+        return sql_select_py
+    
+
+    def select():
+        cat2 = []
+        sql_select = "Select rank"
+        for cat in params:
+            print(cat)
+            if cat != -1 and cat != 1 and cat != year and cat != rank:
+                cat2.append(cat)
+        for i in cat2:
+            sql_select += ", " + i
+        return sql_select
+
+
+    def combine():
+        return select() + " from  "
+
         
     #define methods we need for the variables, default
 
-    # with conn.cursor() as cur:
-    #     cur.execute()#INSERTCODE)
-    #     results = list(cur.fetchall())
-    #     cur.execute()#INSERTCODE)
-    #     count = cur.fetchone()["count"]
+    with conn.cursor() as cur:
+        cur.execute(combine())
+        results = list(cur.fetchall())
 
 
     return render_template(
         "webpage.html",
-        params=request.args)
+        params=request.args,
+        results_one=results)
 
 # ,
 #         result_count=count,
