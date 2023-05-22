@@ -13,7 +13,7 @@ def hello_world():
     return "Hello, World!"
 
 
-@app.route("/set")
+@app.route("/webpage")
 def render_sets():
     year = request.args.get("year", type=int)
     rank = request.args.get("rank", type=int)
@@ -24,7 +24,10 @@ def render_sets():
     freedom = request.args.get("freedom")
     generosity = request.args.get("generosity")
     corruption = request.args.get("corruption")
-    social_support = request.arg.get("social_support")
+    social_support = request.args.get("social_support")
+    sort_by = request.args.get("sort_by", "rank")
+    choice = request.args.get("choice", "gdp")
+
 
     #things we will need for the website..
     #sort_by = request.args.get("sort_by", "set_name")
@@ -41,28 +44,33 @@ def render_sets():
         "freedom": freedom,
         "generosity": generosity,
         "corruption": corruption,
-        "social_support": social_support
+        "social_support": social_support,
+        "choice": f"%{choice}%"
 
         #"sort_by": sort_by
         #"sort_dir": sort_dir
     }
 
-    from_where_clause =
+    sql_clause = """
+        select rank, year, country, score, choice
+        """
         #INSERT SQL CODE
         
     #define methods we need for the variables, default
 
-    with conn.cursor() as cur:
-        cur.execute()#INSERTCODE)
-        results = list(cur.fetchall())
-        cur.execute()#INSERTCODE)
-        count = cur.fetchone()["count"]
+    # with conn.cursor() as cur:
+    #     cur.execute()#INSERTCODE)
+    #     results = list(cur.fetchall())
+    #     cur.execute()#INSERTCODE)
+    #     count = cur.fetchone()["count"]
 
 
     return render_template(
-        "sets.html",
-        params=request.args,
-        result_count=count,
-        sets=results)
+        "webpage.html",
+        params=request.args)
+
+# ,
+#         result_count=count,
+#         sets=results
 
 

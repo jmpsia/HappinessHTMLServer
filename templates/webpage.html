@@ -9,10 +9,50 @@
 <h1>
 <body>
     <form>
+    <label for="yearCheck">  
+        <span> Year: </span>
+        <input type="checkbox" id="yearCheck" name="year" value="{{params['year']}}">
+    </label>
         <label for="rankCheck">  
-            <span> Rank Check: </span>
+            <span> Rank: </span>
             <input type="checkbox" id="rankCheck" name="rank" value="{{params['rank']}}">
+        </label><br>
+        <label for="countryCheck">  
+            <span> Country: </span>
+            <input type="checkbox" id="countryCheck" name="country" value="{{params['country']}}">
         </label>
-
+        <label for="scoreCheck">  
+            <span> Score: </span>
+            <input type="checkbox" id="scoreCheck" name="score" value="{{params['score']}}">
+        </label><br>
+        <label for="gdpCheck">  
+            <span> GDP: </span>
+            <input type="checkbox" id="gdpCheck" name="gdp" value="{{params['gdp']}}">
+        </label>
+        <label for="lifeExpectancyCheck">  
+            <span> Life Expectancy: </span>
+            <input type="checkbox" id="lifeExpectancyCheck" name="lifeExpectancy" value="{{params['life_expectancy']}}">
+        </label><br>
+        <label for="freedomCheck">  
+            <span> Freedom: </span>
+            <input type="checkbox" id="freedomCheck" name="freedom" value="{{params['freedom']}}">
+        </label>
+        <label for="generosityCheck">  
+            <span> Generosity: </span>
+            <input type="checkbox" id="generosityCheck" name="generosity" value="{{params['generosity']}}">
+        </label><br>
+        <label for="corruptionCheck">  
+            <span> Corruption: </span>
+            <input type="checkbox" id="corruptionCheck" name="corruption" value="{{params['corruption']}}">
+        </label>
+        <label for="SocialSupportCheck">  
+            <span> Social Support: </span>
+            <input type="checkbox" id="SocialSupportCheck" name="SocialSupport" value="{{params['social_support']}}">
+        </label>
     </form>
 </body>
+<style>
+span{
+    font-size: medium;
+}
+</style>
