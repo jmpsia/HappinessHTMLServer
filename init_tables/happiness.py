@@ -10,6 +10,6 @@ def populate_happiness(cur: cursor, rows: list[dict[str, str]]):
                         row['corruption'], row['social_support'])
         cur.execute("""
             insert into happiness(year, rank, country, score, gdp, life_expectancy, freedom, generosity, corruption, social_support)
-            values(%s, %s,%s, %s, %s, %s, %s,%s, %s, %s)
+            values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             on conflict do nothing
             """, happiness)

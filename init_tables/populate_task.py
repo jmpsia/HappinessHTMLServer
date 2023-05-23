@@ -23,5 +23,5 @@ def populate(task: PopulateTask, conn: connection) -> None:
 
 POPULATE_TASKS: list[PopulateTask] = [
   PopulateTask("./schema/happiness.sql",
-                 "happiness.csv", populate_happiness),
+                 "./data/happiness.csv", populate_happiness),
 ]
