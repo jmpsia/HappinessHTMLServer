@@ -77,14 +77,13 @@ def render_page():
         for i in cat2:
             sql_select += ", " + i
         return sql_select
-
+        # does this mean that the result has to have the rank?
+        # should rank be part of the checkbox mechanism if so
 
     def combine():
-        return select() + " from  "
+        return select() + " from happiness"
 
-        
-    #define methods we need for the variables, default
-
+    
     with conn.cursor() as cur:
         cur.execute(combine())
         results = list(cur.fetchall())
