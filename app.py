@@ -13,19 +13,18 @@ def hello_world():
     return "Hey bitchessss!"
 
 
-@app.route("/webpage")
+@app.route("/happiness")
 def render_page():
-    country_bool = request.args.get("country_bool", "")
-    score_bool = request.args.get("score_bool")
-    gdp_bool = request.args.get("gdp_bool")
-    life_expectancy_bool = request.args.get("life_expectancy_bool")
-    freedom_bool = request.args.get("freedom_bool")
-    generosity_bool = request.args.get("generosity_bool")
-    corruption_bool = request.args.get("corruption_bool")
-    social_support_bool = request.args.get("social_support_bool")
+    score_bool = request.args.get("score_bool", "1")
+    gdp_bool = request.args.get("gdp_bool", "1")
+    life_expectancy_bool = request.args.get("life_expectancy_bool", "1")
+    freedom_bool = request.args.get("freedom_bool", "1")
+    generosity_bool = request.args.get("generosity_bool", "1")
+    corruption_bool = request.args.get("corruption_bool","1")
+    social_support_bool = request.args.get("social_support_bool", "1")
     year = request.args.get("year", type=int)
     rank = request.args.get("rank", type=int)
-    country = request.args.get("country", "-1" if not country_bool else "1")
+    country = request.args.get("country")
     score = request.args.get("score", "-1" if not score_bool else "1")
     gdp = request.args.get("gdp", "-1" if not gdp_bool else "1")
     life_expectancy = request.args.get("life_expectancy", "-1" if not life_expectancy_bool else "1")
@@ -51,49 +50,45 @@ def render_page():
         "corruption": corruption,
         "social_support": social_support
 
-
         #"sort_by": sort_by
         #"sort_dir": sort_dir
     }
+    
+    def countries():
+        sql_statement = "Select country from happiness"
+        return sql_statement
 
-    def select_dumb():
-        sql_select_py = "select rank, "
-        cat2 =()
+
+    def headers():
+        headers = []
         for cat in params:
             print(cat)
-            cat2 += (cat) if not cat == -1 or not cat == 1 else ("")
-            
-        sql_select_py += str.join(', ', cat2)
-        return sql_select_py
-    
+            if not (cat == -1) and not (cat == year) and not (cat == rank) and not (cat == country):
+                headers.append(cat)
+        return headers
 
     def select():
-        cat2 = []
+        list = headers()
         sql_select = "Select rank"
-        for cat in params:
-            print(cat)
-            if cat != -1 and cat != 1 and cat != year and cat != rank:
-                cat2.append(cat)
-        for i in cat2:
+        for i in list:
             sql_select += ", " + i
-        return sql_select
-        # does this mean that the result has to have the rank?
-        # should rank be part of the checkbox mechanism if so
-
-    def combine():
-        return select() + " from happiness"
-
+        return sql_select + " from happiness"
     
     with conn.cursor() as cur:
-        cur.execute(combine())
+        cur.execute(select())
         results = list(cur.fetchall())
+        cur.execute(countries())
+        my_countries = list(cur.fetchall())
 
-
+    c = my_countries
+    h = headers()
     return render_template(
-        "webpage.html",
+        "happiness.html",
         params=request.args,
-        results_one=results)
-
+        results_one=results,
+        countries = c,
+        headers = h
+    )
 # ,
 #         result_count=count,
 #         sets=results

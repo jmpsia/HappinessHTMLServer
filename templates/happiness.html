@@ -1,0 +1,137 @@
+<html>
+<head>
+    <Title>Happiness</Title>
+    <link rel="shortcut icon" href = "https://static.vecteezy.com/system/resources/previews/000/553/995/large_2x/cartoon-hand-making-positive-thumbs-up-gesture-vector.jpg">
+
+</head>
+<h1 style="text-align: center; background-color:lightcyan; border: 4px solid; height: 204px;">
+    <img id="Happy-baby-1" src="https://s.wsj.net/public/resources/images/BN-LK173_1123hj_WN_20151123103057.jpg" height="200">
+    World Happiness Data!
+    <img id="Happy-baby-2" src="https://c4.wallpaperflare.com/wallpaper/899/955/621/baby-wallpaper-preview.jpg" height="200">
+<h1>
+<body>
+    <div class="row">
+        <form style="align-items: center;">
+            <div class="column" style="align-items: center; text-align: center;"> 
+                <label for="scoreCheck">  
+                    <span> Score: </span>
+                    <input type="checkbox" id="scoreCheck" name="score" value="{{params['score']}}">
+                </label><br>
+                <label for="gdpCheck">  
+                    <span> GDP: </span>
+                    <input type="checkbox" id="gdpCheck" name="gdp" value="{{params['gdp_bool']}}">
+                </label><br>
+                <label for="lifeExpectancyCheck">  
+                    <span> Life Expectancy: </span>
+                    <input type="checkbox" id="lifeExpectancyCheck" name="lifeExpectancy" value="{{params['life_expectancy_bool']}}">
+                </label><br>
+                <label for="freedomCheck">  
+                    <span> Freedom: </span>
+                    <input type="checkbox" id="freedomCheck" name="freedom" value="{{params['freedom_bool']}}">
+                </label><br>
+            </div>
+            <div class="column" style="align-items: center; text-align: center;">
+                <label for="generosityCheck">  
+                    <span> Generosity: </span>
+                    <input type="checkbox" id="generosityCheck" name="generosity" value="{{params['generosity_bool']}}">
+                </label><br>
+                <label for="corruptionCheck">  
+                    <span> Corruption: </span>
+                    <input type="checkbox" id="corruptionCheck" name="corruption" value="{{params['corruption_bool']}}">
+                </label><br>
+                <label for="SocialSupportCheck">  
+                    <span> Social Support: </span>
+                    <input type="checkbox" id="SocialSupportCheck" name="SocialSupport" value="{{params['social_support_bool']}}">
+                </label>
+                <button type="submit"> Search </button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class = "table">
+            <table ">
+                <thead>
+                    <tr text-align="center" color="#f6ec36">
+                        {% for head in headers %}
+                        <th>{{ head }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                {% if params.country in countries%}
+                    <tbody>
+                        {% for row in results %}                
+                        <tr style="text-align: right;">             
+                            {% for item in row %}  
+                                {% if item in headers %}
+                                <td>{{ item }}</td> 
+                                {% endif %}
+                            {% endfor %}
+                        </tr>   
+                        {% endfor %}
+                    </tbody>
+                {% else %}
+                    <tbody>
+                        {% for row in results %}                
+                        <tr style="text-align: right;">             
+                            {% for item in row %}  
+                                {% if item in headers %}
+                                <td>{{ item }}</td> 
+                                {% endif %}
+                            {% endfor %}
+                        </tr>   
+                        {% endfor %}
+                    </tbody>   
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</body>
+
+<style>
+    .happy_baby_1{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    .happy_baby_2{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    span{
+        font-size: medium;
+    }
+    h1{
+        font-size: 55px;
+    }
+    .column {
+    float: left;
+    width: 15%;
+    }
+</style>
+
+<!-- 
+<label for="yearCheck">  
+    <span> Year: </span>
+    <input type="checkbox" id="yearCheck" name="year" value="{{params['year_bool']}}">
+</label><br>
+<label for="rankCheck">  
+    <span> Rank: </span>
+    <input type="checkbox" id="rankCheck" name="rank" value="{{params['rank_bool']}}">
+</label><br>
+<label for="countryCheck">  
+    <span> Country: </span>
+    <input type="checkbox" id="countryCheck" name="country" value="{{params['country_bool']}}">
+</label><br> 
+
+   def select_dumb():
+        sql_select_py = "select rank, "
+        cat2 =()
+        for cat in params:
+            print(cat)
+            cat2 += (cat) if not cat == -1 or not cat == 1 else ("")
+            
+        sql_select_py += str.join(', ', cat2)
+        return sql_select_py
+    
+    -->
