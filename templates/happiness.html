@@ -19,29 +19,29 @@
                 </label><br>
                 <label for="gdpCheck">  
                     <span> GDP: </span>
-                    <input type="checkbox" id="gdpCheck" name="gdp" value="{{params['gdp_bool']}}">
+                    <input type="checkbox" id="gdpCheck" name="gdp" value="{{params['gdp']}}">
                 </label><br>
                 <label for="lifeExpectancyCheck">  
                     <span> Life Expectancy: </span>
-                    <input type="checkbox" id="lifeExpectancyCheck" name="lifeExpectancy" value="{{params['life_expectancy_bool']}}">
+                    <input type="checkbox" id="lifeExpectancyCheck" name="lifeExpectancy" value="{{params['lifeExpectancy']}}">
                 </label><br>
                 <label for="freedomCheck">  
                     <span> Freedom: </span>
-                    <input type="checkbox" id="freedomCheck" name="freedom" value="{{params['freedom_bool']}}">
+                    <input type="checkbox" id="freedomCheck" name="freedom" value="{{params['freedom']}}">
                 </label><br>
             </div>
             <div class="column" style="align-items: center; text-align: center;">
                 <label for="generosityCheck">  
                     <span> Generosity: </span>
-                    <input type="checkbox" id="generosityCheck" name="generosity" value="{{params['generosity_bool']}}">
+                    <input type="checkbox" id="generosityCheck" name="generosity" value="{{params['generosity']}}">
                 </label><br>
                 <label for="corruptionCheck">  
                     <span> Corruption: </span>
-                    <input type="checkbox" id="corruptionCheck" name="corruption" value="{{params['corruption_bool']}}">
+                    <input type="checkbox" id="corruptionCheck" name="corruption" value="{{params['corruption']}}">
                 </label><br>
                 <label for="SocialSupportCheck">  
                     <span> Social Support: </span>
-                    <input type="checkbox" id="SocialSupportCheck" name="SocialSupport" value="{{params['social_support_bool']}}">
+                    <input type="checkbox" id="SocialSupportCheck" name="socialSupport" value="{{params['socialSupport']}}">
                 </label>
                 <button type="submit"> Search </button>
             </div>
@@ -49,7 +49,7 @@
     </div>
     <div class="row">
         <div class = "table">
-            <table ">
+            <table>
                 <thead>
                     <tr text-align="center" color="#f6ec36">
                         {% for head in headers %}
@@ -71,12 +71,12 @@
                     </tbody>
                 {% else %}
                     <tbody>
-                        {% for row in results %}                
+                        {% for row, value1 in results_one %}                
                         <tr style="text-align: right;">             
-                            {% for item in row %}  
-                                {% if item in headers %}
-                                <td>{{ item }}</td> 
-                                {% endif %}
+                            {% for value, row2 in value1 %} 
+                                {% for k, v in row2 %}
+                                    <td>{{v}}</td>
+                                {% endfor %}
                             {% endfor %}
                         </tr>   
                         {% endfor %}
@@ -98,11 +98,14 @@
         top: 0px;
         right: 0px;
     }
+    table{
+        border: black 2px;
+    }
     span{
         font-size: medium;
     }
     h1{
-        font-size: 55px;
+        font-size: 50px;
     }
     .column {
     float: left;

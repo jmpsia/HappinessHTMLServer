@@ -15,23 +15,16 @@ def hello_world():
 
 @app.route("/happiness")
 def render_page():
-    score_bool = request.args.get("score_bool", "1")
-    gdp_bool = request.args.get("gdp_bool", "1")
-    life_expectancy_bool = request.args.get("life_expectancy_bool", "1")
-    freedom_bool = request.args.get("freedom_bool", "1")
-    generosity_bool = request.args.get("generosity_bool", "1")
-    corruption_bool = request.args.get("corruption_bool","1")
-    social_support_bool = request.args.get("social_support_bool", "1")
-    year = request.args.get("year", type=int)
-    rank = request.args.get("rank", type=int)
-    country = request.args.get("country")
-    score = request.args.get("score", "-1" if not score_bool else "1")
-    gdp = request.args.get("gdp", "-1" if not gdp_bool else "1")
-    life_expectancy = request.args.get("life_expectancy", "-1" if not life_expectancy_bool else "1")
-    freedom = request.args.get("freedom", "-1" if not freedom_bool else "1")
-    generosity = request.args.get("generosity", "-1" if not generosity_bool else "1")
-    corruption = request.args.get("corruption", "-1" if not corruption_bool else "1")
-    social_support = request.args.get("social_support", "-1" if not social_support_bool else "1")
+    year = request.args.get("year")
+    rank = request.args.get("rank", 1, type=int)
+    country = request.args.get("country", "")
+    score = request.args.get("score")
+    gdp = request.args.get("gdp")
+    life_expectancy = request.args.get("lifeExpectancy")
+    freedom = request.args.get("freedom")
+    generosity = request.args.get("generosity")
+    corruption = request.args.get("corruption")
+    social_support = request.args.get("socialSupport")
 
     #things we will need for the website..
     #sort_by = request.args.get("sort_by", "set_name")
@@ -61,18 +54,20 @@ def render_page():
 
     def headers():
         headers = []
-        for cat in params:
-            print(cat)
-            if not (cat == -1) and not (cat == year) and not (cat == rank) and not (cat == country):
-                headers.append(cat)
+        for name, value in params.items():
+            if value is not None:
+                headers.append(name)
         return headers
 
     def select():
-        list = headers()
-        sql_select = "Select rank"
-        for i in list:
-            sql_select += ", " + i
-        return sql_select + " from happiness"
+        
+        print(headers())
+        sql_select = "Select "
+        for count, i in enumerate(headers()):
+            sql_select += (i + ", ") if count is not len(headers())-1 else i
+        print(sql_select)
+        return sql_select + " from happiness order by rank"
+    
     
     with conn.cursor() as cur:
         cur.execute(select())
@@ -80,6 +75,7 @@ def render_page():
         cur.execute(countries())
         my_countries = list(cur.fetchall())
 
+    print(results)
     c = my_countries
     h = headers()
     return render_template(
