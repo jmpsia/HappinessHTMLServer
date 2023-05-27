@@ -60,8 +60,6 @@ def render_page():
         return headers
 
     def select():
-        
-        print(headers())
         sql_select = "Select "
         for count, i in enumerate(headers()):
             sql_select += (i + ", ") if count is not len(headers())-1 else i

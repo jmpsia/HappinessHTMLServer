@@ -57,31 +57,37 @@
                         {% endfor %}
                     </tr>
                 </thead>
-                {% if params.country in countries%}
-                    <tbody>
-                        {% for row in results %}                
-                        <tr style="text-align: right;">             
-                            {% for item in row %}  
-                                {% if item in headers %}
-                                <td>{{ item }}</td> 
-                                {% endif %}
-                            {% endfor %}
-                        </tr>   
+                <tbody>
+                    {% for row in results_one %}                
+                    <tr style="text-align: right;">
+                        <td>{{row.rank}}</td>
+                        <td>{{row.country}}</td>
+                        {% for head in headers %}
+                            {% if 'score' == head %}
+                            <td>{{row.score}}</td>
+                            {%endif %}
+                            {% if 'gdp' == head %}
+                            <td>{{row.gdp}}</td>
+                            {%endif %}
+                            {% if 'life_expectancy' == head %}
+                            <td>{{row.life_expectancy}}</td>
+                            {%endif %}
+                            {% if 'freedom' == head %}
+                            <td>{{row.freedom}}</td>
+                            {%endif %}
+                            {% if 'generosity' == head %}
+                            <td>{{row.generosity}}</td>
+                            {%endif %}
+                            {% if 'corruption' == head %}
+                            <td>{{row.corruption}}</td>
+                            {%endif %}
+                            {% if 'social_support' == head %}
+                            <td>{{row.social_support}}</td>
+                            {%endif %}
                         {% endfor %}
-                    </tbody>
-                {% else %}
-                    <tbody>
-                        {% for row, value1 in results_one %}                
-                        <tr style="text-align: right;">             
-                            {% for value, row2 in value1 %} 
-                                {% for k, v in row2 %}
-                                    <td>{{v}}</td>
-                                {% endfor %}
-                            {% endfor %}
-                        </tr>   
-                        {% endfor %}
-                    </tbody>   
-                {% endif %}
+                    </tr>   
+                    {% endfor %}
+                </tbody> 
             </table>
         </div>
     </div>
